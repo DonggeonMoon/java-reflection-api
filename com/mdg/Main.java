@@ -48,6 +48,13 @@ public class Main {
 
             System.out.println("constructor.getName() = " + constructor.getName());
 
+            // 클래스 객체로 부모 클래스 접근
+            Class superClass = clazz2.getSuperclass();
+
+            // 자식 클래스 객체에서 얻은 부모 클래스의 필드에 접근
+            Field parentFieldA = superClass.getField("fieldA");
+            System.out.println("parentFieldA.get(parent) = " + parentFieldA.get(parent));
+
         } catch (ClassNotFoundException | NoSuchFieldException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             throw new RuntimeException(e);
         }

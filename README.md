@@ -2,7 +2,7 @@
 자바 Reflection API 정리
 
 ## Java Reflection API
-컴파일 타임에는 구체적인 클래스 타입을 알 수 없는 클래스, 인터페이스, 필드, 메서드에 대한 런타임 접근 또는 수정을 가능하게 해주는 자바 기본 API이다.
+컴파일 타임에 구체적인 클래스 타입을 알 수 없는 클래스, 인터페이스, 필드, 메서드에 대한 런타임 접근 또는 수정을 가능하게 해주는 자바 기본 API이다.
 
 실제 코드 작성 시에 Reflection API를 사용하게 될 일은 많이 없다. 대부분의 경우에 구체 클래스 타입을 아는 상태에서 코드를 작성하기 때문이다. 또한, 컴파일 타임이 아니라 런타임에 동적으로 타입을 분석하고 정보를 가져와 JVM을 최적화 할 수 없어 성능 오버헤드가 발생할 수 있다는 문제점도 갖고 있다.
 
@@ -40,7 +40,7 @@ System.out.println("fieldA.get(parent) = " + fieldA.get(parent));
 ### private일 경우(public일 경우에도 가능)
 ```java
 // private 필드에 접근하기 위해서는
-// 필드 객체의 Accessible 값을 true로 변경해야 함
+// 필드 객체의 accessible 값을 true로 변경해야 함
 Field fieldB = clazz.getDeclaredField("fieldB");
 fieldB.setAccessible(true);
 
@@ -76,5 +76,15 @@ Class<?> clazz2 = Class.forName("com.mdg.Child");
 Constructor<?> constructor = clazz2.getConstructor(String.class);
 
 System.out.println("constructor.getName() = " + constructor.getName());
+```
+
+## 부모 클래스 접근
+```java
+// 클래스 객체로 부모 클래스 접근
+Class superClass = clazz2.getSuperclass();
+
+// 자식 클래스 객체에서 얻은 부모 클래스의 필드에 접근
+Field parentFieldA = superClass.getField("fieldA");
+System.out.println("parentFieldA.get(parent) = " + parentFieldA.get(parent));
 ```
 
